@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:showIn="navigation_view">
+
+  <group
+    android:id="@+id/drawer_menu_group1"
+    android:checkableBehavior="single">
+    <item
+      android:id="@+id/nav_note"
+      android:icon="@drawable/ic_menu_note"
+      android:title="备忘" />
+    <item
+      android:id="@+id/nav_remind"
+      android:icon="@drawable/ic_menu_reminder"
+      android:title="提醒" />
+  </group>
+
+  <group
+    android:id="@+id/drawer_menu_group2"
+    android:checkableBehavior="single">
+    <item
+      android:id="@+id/nav_trash"
+      android:icon="@drawable/ic_menu_trash"
+      android:title="已删除" />
+  </group>
+
+  <group android:id="@+id/drawer_menu_group3">
+    <item
+      android:id="@+id/nav_setting"
+      android:icon="@drawable/ic_menu_settings"
+      android:title="设置" />
+    <item
+      android:id="@+id/nav_about"
+      android:icon="@drawable/ic_menu_about"
+      android:title="关于" />
+  </group>
+
+</menu>
