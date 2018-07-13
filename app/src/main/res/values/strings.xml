@@ -5,7 +5,6 @@
   <string name="nav_header_title">Android Studio</string>
   <string name="nav_header_subtitle">android.studio@android.com</string>
   <string name="nav_header_desc">Navigation header</string>
-  <string name="action_settings">Settings</string>
   <string name="title_activity_settings">Settings</string>
 
   <!-- Strings related to Settings -->
@@ -79,4 +78,19 @@
   <string name="pref_ringtone_silent">Silent</string>
 
   <string name="pref_title_vibrate">Vibrate</string>
+
+  <string name="no_notes_main">没有备忘记录！</string>
+  <string name="no_notes_sub">现在来添加一个吧</string>
+  <string name="action_filter">过滤</string>
+  <string name="action_search">Search</string>
+  <string name="delete">删除</string>
+  <string name="title_activity_modify_note">ModifyNoteActivity</string>
+  <string name="note_content">备忘内容</string>
+  <string name="label_created_time">创建于</string>
+  <string name="label_last_modified_time">修改于</string>
+  <string name="note_label">备忘标题</string>
+  <string name="hint_note_content">在这输入备忘内容</string>
+  <string name="note_filter_label">All Notes</string>
+  <string name="action_done">完成</string>
+  <string name="label_alarm_time">提醒我</string>
 </resources>

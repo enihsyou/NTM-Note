@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".notedetail.NoteDetailFragment">
+
+  <LinearLayout
+    android:id="@+id/linearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:labelFor="@id/note_label"
+      android:text="@string/note_label"
+      android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+      android:id="@+id/note_label"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="16dp"
+      android:maxLines="1"
+      android:textAppearance="@style/TextAppearance.AppCompat.Title"
+      tools:hint="备忘标题"
+      tools:text="九ちのセカィ" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/linearLayout2"
+    android:layout_width="0dp"
+    android:layout_height="350dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:labelFor="@id/note_content"
+      android:text="@string/note_content"
+      android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+      android:id="@+id/note_content"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="16dp"
+      android:gravity="top"
+      android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+      tools:hint="在这输入备忘内容"
+      tools:text="我们在年少时并不知道，有些乐章一旦开始，唱的就是曲终人散。" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/linearLayout3"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="4dp"
+      android:labelFor="@id/created_time"
+      android:text="@string/label_created_time" />
+
+    <TextView
+      android:id="@+id/created_time"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      tools:text="2018.07.03 20:20" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/linearLayout4"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="4dp"
+      android:labelFor="@id/last_modified_time"
+      android:text="@string/label_last_modified_time" />
+
+    <TextView
+      android:id="@+id/last_modified_time"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      tools:text="2018.07.03 21:20" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/linearLayout5"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="4dp"
+      android:labelFor="@id/alarm_time"
+      android:text="@string/label_alarm_time" />
+
+    <TextView
+      android:id="@+id/alarm_time"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      tools:text="2018.07.04 11:20" />
+  </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
+

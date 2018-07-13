@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <item
+    android:id="@+id/delete_note"
+    android:icon="@drawable/ic_menu_trash"
+    android:title="Delete Note"
+    app:showAsAction="ifRoom|withText"/>
+  <item
+    android:id="@+id/archive_note"
+    android:icon="@drawable/ic_menu_archive"
+    android:title="Archive Note"
+    app:showAsAction="ifRoom|withText"/>
+</menu>

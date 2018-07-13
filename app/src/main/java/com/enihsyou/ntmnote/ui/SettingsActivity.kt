@@ -1,4 +1,4 @@
-package com.enihsyou.ntmnote.activity
+package com.enihsyou.ntmnote.ui
 
 import android.annotation.TargetApi
 import android.content.Context

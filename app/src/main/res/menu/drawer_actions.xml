@@ -20,12 +20,17 @@
     android:id="@+id/drawer_menu_group2"
     android:checkableBehavior="single">
     <item
+      android:id="@+id/nav_archived"
+      android:icon="@drawable/ic_menu_archive"
+      android:title="已归档" />
+    <item
       android:id="@+id/nav_trash"
       android:icon="@drawable/ic_menu_trash"
       android:title="已删除" />
   </group>
 
-  <group android:id="@+id/drawer_menu_group3">
+  <group android:id="@+id/drawer_menu_group3"
+    android:checkableBehavior="single">
     <item
       android:id="@+id/nav_setting"
       android:icon="@drawable/ic_menu_settings"
