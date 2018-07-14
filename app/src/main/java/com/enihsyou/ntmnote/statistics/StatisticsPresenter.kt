@@ -18,7 +18,7 @@ class StatisticsPresenter(
     }
 
     private fun loadStatistics() {
-        dataSource.getNotes(object : NotesDataSource.LoadNotesCallback {
+        dataSource.getNotes(false, object : NotesDataSource.LoadNotesCallback {
             override fun onNotesLoaded(notes: List<Note>) {
                 val totalNumber = notes.count()
                 val alarmNumber = notes.filter { it.alarmTime != null }.count()

@@ -22,6 +22,7 @@ import android.widget.TextView
 import com.enihsyou.ntmnote.R
 import com.enihsyou.ntmnote.data.Converters
 import com.enihsyou.ntmnote.data.Note
+import com.enihsyou.ntmnote.data.NoteStatus
 import com.enihsyou.ntmnote.modifynote.ModifyNoteActivity
 import com.enihsyou.ntmnote.notedetail.NoteDetailActivity
 import com.enihsyou.ntmnote.utils.OnSwipeTouchListener
@@ -84,12 +85,11 @@ class NotesFragment : Fragment(), NotesContract.View {
 
             titleText = root.filteringLabel
         }
+
         // Set up floating action button
         requireActivity().fab_add_note.apply {
             setOnClickListener { presenter.addNewNote() }
         }
-
-
 
         setHasOptionsMenu(true)
         return root
@@ -137,15 +137,18 @@ class NotesFragment : Fragment(), NotesContract.View {
         no_notes_view.visibility = View.GONE
 
         val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        for (note in notes) {
-            note.alarmTime?.run {
-                val intent = Intent(context, AlarmReceiver::class.java)
-                intent.putExtra(AlarmReceiver.EXT_NOTIFY_TITLE, note.label)
-                intent.putExtra(AlarmReceiver.EXT_NOTIFY_CONTENT, note.content)
-                val pendingIntent = PendingIntent.getBroadcast(context, REQ_ALARM, intent, 0)
-                alarmManager.set(AlarmManager.RTC_WAKEUP, this.time, pendingIntent)
+        notes
+            .asSequence()
+            .filter { it.status == NoteStatus.NORMAL }
+            .forEach {
+                it.alarmTime?.run {
+                    val intent = Intent(context, AlarmReceiver::class.java)
+                    intent.putExtra(AlarmReceiver.EXT_NOTIFY_TITLE, it.label)
+                    intent.putExtra(AlarmReceiver.EXT_NOTIFY_CONTENT, it.content)
+                    val pendingIntent = PendingIntent.getBroadcast(context, REQ_ALARM, intent, 0)
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, this.time, pendingIntent)
+                }
             }
-        }
     }
 
     override fun showNoNotes() {

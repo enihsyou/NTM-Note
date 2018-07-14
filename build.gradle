@@ -11,6 +11,7 @@ ext {
     supportLibraryVersion = '27.1.1'
     constraintLayoutVersion = '1.1.2'
     roomVersion = '1.1.1'
+    retrofitVersion = '2.4.0'
     archLifecycleVersion = '1.1.1'
     junitVersion = '4.12'
     runnerVersion = '1.0.2'

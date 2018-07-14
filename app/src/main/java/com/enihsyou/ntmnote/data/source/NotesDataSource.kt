@@ -20,7 +20,7 @@ interface NotesDataSource {
         fun onDataNotAvailable()
     }
 
-    fun getNotes(callback: LoadNotesCallback, errorCallback: SourceErrorCallback? = null)
+    fun getNotes(force: Boolean, callback: LoadNotesCallback, errorCallback: SourceErrorCallback? = null)
 
     fun getNote(noteId: Int, callback: GetNoteCallback, errorCallback: SourceErrorCallback? = null)
 
@@ -35,3 +35,4 @@ interface NotesDataSource {
     fun deleteNote(note: Note)
     fun deleteNote(noteId: Int)
 }
+

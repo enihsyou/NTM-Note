@@ -5,7 +5,7 @@ import com.enihsyou.ntmnote.data.NoteStatus
 import com.enihsyou.ntmnote.data.source.NotesDataSource
 
 class NotesPresenter(
-    private val notesDataSource: NotesDataSource,
+    private val dataSource: NotesDataSource,
     private val fragment: NotesContract.View
 ) : NotesContract.Presenter {
 
@@ -17,7 +17,7 @@ class NotesPresenter(
 
     override fun changeFilterType(type: NotesFilterType) {
         currentFiltering = type
-        loadNotes(false)
+        loadNotes(false, false)
     }
 
     private var firstLoad = true
@@ -35,16 +35,16 @@ class NotesPresenter(
     }
 
     override fun loadNotes() {
-        loadNotes(true)
+        loadNotes(true, true)
         firstLoad = false
     }
 
-    private fun loadNotes(showLoadingUi: Boolean) {
+    private fun loadNotes(force: Boolean, showLoadingUi: Boolean) {
         if (showLoadingUi) {
             fragment.setLoadingIndicator(true)
         }
 
-        notesDataSource.getNotes(object : NotesDataSource.LoadNotesCallback {
+        dataSource.getNotes(force, object : NotesDataSource.LoadNotesCallback {
             override fun onNotesLoaded(notes: List<Note>) {
                 val notesToShow = mutableListOf<Note>()
 
@@ -106,13 +106,13 @@ class NotesPresenter(
     }
 
     override fun archiveNote(archivedNote: Note) {
-        notesDataSource.archiveNote(archivedNote)
+        dataSource.archiveNote(archivedNote)
         fragment.showNoteMarkedArchived(archivedNote)
         loadNotes()
     }
 
     override fun deleteNote(deletedNote: Note) {
-        notesDataSource.deleteNote(deletedNote)
+        dataSource.deleteNote(deletedNote)
         fragment.showNoteMarkedDeleted(deletedNote)
         loadNotes()
     }

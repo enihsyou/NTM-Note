@@ -26,7 +26,7 @@ class Note(
     var lastModifiedTime: Date = createdTime
 ) {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "note_id")
     var id: Int = 0
 }

@@ -3,6 +3,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="com.enihsyou.ntmnote">
 
+  <uses-permission android:name="android.permission.INTERNET" />
+
   <application
     android:name=".App"
     android:allowBackup="false"
@@ -34,9 +36,12 @@
 
     <receiver
       android:name=".notes.AlarmReceiver"
-      android:enabled="true"/>
+      android:enabled="true" />
 
     <activity android:name=".statistics.StatisticsActivity" />
+    <activity
+      android:name=".notes.LoginActivity"
+      android:label="@string/title_activity_login" />
   </application>
 
 </manifest>

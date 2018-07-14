@@ -3,6 +3,7 @@ package com.enihsyou.ntmnote.data.source.local
 import com.enihsyou.ntmnote.data.Note
 import com.enihsyou.ntmnote.data.source.NotesDataSource
 import com.enihsyou.ntmnote.utils.AppExecutors
+import java.util.*
 
 class NotesLocalDataSource private constructor(
     private val notesDAO: NotesDAO,
@@ -10,6 +11,7 @@ class NotesLocalDataSource private constructor(
 ) : NotesDataSource {
 
     override fun getNotes(
+        force: Boolean,
         callback: NotesDataSource.LoadNotesCallback,
         errorCallback: NotesDataSource.SourceErrorCallback?
     ) {
@@ -46,6 +48,7 @@ class NotesLocalDataSource private constructor(
     override fun saveNote(note: Note) {
         appExecutors.diskIO.execute {
             if (note.id == 0) {
+                note.id = Random().nextInt()
                 notesDAO.insertNote(note)
             } else {
                 notesDAO.updateNote(note)

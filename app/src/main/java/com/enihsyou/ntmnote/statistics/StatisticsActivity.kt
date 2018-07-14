@@ -3,7 +3,7 @@ package com.enihsyou.ntmnote.statistics
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.enihsyou.ntmnote.R
-import com.enihsyou.ntmnote.notes.Injection
+import com.enihsyou.ntmnote.ui.Injection
 import com.enihsyou.ntmnote.utils.replaceFragmentInActivity
 import com.enihsyou.ntmnote.utils.setupActionBar
 
