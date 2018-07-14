@@ -1,6 +1,6 @@
 package com.enihsyou.ntmnote
 
-interface BaseView<T> {
+interface BaseView<T : BasePresenter> {
 
     var presenter: T
 }

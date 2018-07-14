@@ -22,9 +22,6 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity
-      android:name=".ui.SettingsActivity"
-      android:label="@string/title_activity_settings" />
     <activity android:name=".ui.AboutActivity" />
     <activity
       android:name=".notedetail.NoteDetailActivity"
@@ -37,8 +34,9 @@
 
     <receiver
       android:name=".notes.AlarmReceiver"
-      android:enabled="true"
-      android:exported="true"></receiver>
+      android:enabled="true"/>
+
+    <activity android:name=".statistics.StatisticsActivity" />
   </application>
 
 </manifest>

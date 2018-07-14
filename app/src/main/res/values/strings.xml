@@ -80,6 +80,10 @@
   <string name="pref_title_vibrate">Vibrate</string>
 
   <string name="no_notes_main">没有备忘记录！</string>
+  <string name="no_alarm_notes_main">没有提醒记录！</string>
+  <string name="no_archived_notes_main">没有归档记录！</string>
+  <string name="no_deleted_notes_main">没有删除记录！</string>
+
   <string name="no_notes_sub">现在来添加一个吧</string>
   <string name="action_filter">过滤</string>
   <string name="action_search">Search</string>
@@ -90,7 +94,25 @@
   <string name="label_last_modified_time">修改于</string>
   <string name="note_label">备忘标题</string>
   <string name="hint_note_content">在这输入备忘内容</string>
-  <string name="note_filter_label">All Notes</string>
+
+  <string name="all_notes_filter_label">全部备忘项目</string>
+  <string name="alarm_notes_filter_label">全部提醒项目</string>
+  <string name="archived_notes_filter_label">全部归档项目</string>
+  <string name="deleted_notes_filter_label">全部删除项目</string>
+
   <string name="action_done">完成</string>
   <string name="label_alarm_time">提醒我</string>
+  <string name="action_archive">已归档</string>
+  <string name="action_delete">已移入回收站</string>
+  <string name="action_activate">已恢复</string>
+  <string name="action_note_saved">笔记已保存</string>
+  <string name="action_note_updated">笔记已更新</string>
+  <string name="menu_action_change_layout">变更布局</string>
+  <string name="note_missing">没有笔记内容</string>
+  <string name="statistics_activity_title">统计</string>
+
+  <string name="statistics_total_note">笔记总数</string>
+  <string name="statistics_alarm_note">提醒总数</string>
+  <string name="statistics_archived_note">归档总数</string>
+  <string name="statistics_deleted_note">删除总数</string>
 </resources>

@@ -7,7 +7,7 @@ class NotesRepository(
 ) : NotesDataSource {
     override fun getNotes(
         callback: NotesDataSource.LoadNotesCallback,
-        errorCallback: NotesDataSource.SourceErrorCallback
+        errorCallback: NotesDataSource.SourceErrorCallback?
     ) {
         TODO("not implemented") // todo
     }
@@ -15,7 +15,7 @@ class NotesRepository(
     override fun getNote(
         noteId: Int,
         callback: NotesDataSource.GetNoteCallback,
-        errorCallback: NotesDataSource.SourceErrorCallback
+        errorCallback: NotesDataSource.SourceErrorCallback?
     ) {
         TODO("not implemented") // todo
     }

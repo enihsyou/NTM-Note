@@ -17,6 +17,14 @@ interface NotesContract {
         fun actionNoteDetailsUi(noteId: Int)
 
         fun showNoNotes()
+        fun showNoAlarmNotes()
+        fun showNoArchivedNotes()
+        fun showNoDeletedNotes()
+
+        fun showNonFilterLabel()
+        fun showAlarmFilterLabel()
+        fun showArchivedFilterLabel()
+        fun showDeletedFilterLabel()
 
         fun showNoteMarkedArchived(archivedNote: Note)
 
@@ -30,6 +38,10 @@ interface NotesContract {
     }
 
     interface Presenter : BasePresenter {
+
+        var currentFiltering: NotesFilterType
+
+        fun changeFilterType(type: NotesFilterType)
 
         fun addNoteResult()
 

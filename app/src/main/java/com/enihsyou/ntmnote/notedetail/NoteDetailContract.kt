@@ -13,6 +13,7 @@ interface NoteDetailContract {
         fun setAlarmTime(time:String?)
         fun showNoteArchived()
         fun showNoteDeleted()
+        fun showNoteActivated()
         fun showMissingNote()
     }
 
@@ -20,6 +21,7 @@ interface NoteDetailContract {
         fun editNote()
         fun archiveNote()
         fun deleteNote()
+        fun activateNote()
     }
 }
 

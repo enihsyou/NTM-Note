@@ -6,12 +6,16 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.DrawableRes
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -30,6 +34,10 @@ import kotlinx.android.synthetic.main.note_item.view.*
 class NotesFragment : Fragment(), NotesContract.View {
 
     override lateinit var presenter: NotesContract.Presenter
+
+    private lateinit var titleText: TextView
+
+    private lateinit var currentLayoutManager: RecyclerView.LayoutManager
 
     private val itemListener = object : NoteItemListener {
         override fun onItemClick(clickedNote: Note) {
@@ -59,6 +67,8 @@ class NotesFragment : Fragment(), NotesContract.View {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_notes, container, false)
 
+        currentLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
         with(root) {
 
             // Set up progress indicator
@@ -69,13 +79,17 @@ class NotesFragment : Fragment(), NotesContract.View {
             // Set up list adapter
             notes_list.apply {
                 adapter = listAdapter
-                layoutManager = GridLayoutManager(context, 2)
+                layoutManager = currentLayoutManager
             }
+
+            titleText = root.filteringLabel
         }
         // Set up floating action button
         requireActivity().fab_add_note.apply {
             setOnClickListener { presenter.addNewNote() }
         }
+
+
 
         setHasOptionsMenu(true)
         return root
@@ -84,6 +98,26 @@ class NotesFragment : Fragment(), NotesContract.View {
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(R.menu.notes_fragment, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_action_change_layout -> toggleLayoutManager()
+            else                           -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
+
+    private fun toggleLayoutManager() {
+        notes_list?.layoutManager = currentLayoutManager
+        currentLayoutManager = if (currentLayoutManager::class == GridLayoutManager::class) {
+            LinearLayoutManager(context)
+        } else if (currentLayoutManager::class == LinearLayoutManager::class) {
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        } else {
+            GridLayoutManager(context, 2)
+        }
     }
 
     override fun setLoadingIndicator(active: Boolean) {
@@ -102,7 +136,6 @@ class NotesFragment : Fragment(), NotesContract.View {
         notes_view.visibility = View.VISIBLE
         no_notes_view.visibility = View.GONE
 
-
         val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         for (note in notes) {
             note.alarmTime?.run {
@@ -115,6 +148,47 @@ class NotesFragment : Fragment(), NotesContract.View {
         }
     }
 
+    override fun showNoNotes() {
+        showNoNotesView(getString(R.string.no_notes_main), R.drawable.ic_fab_main_plus)
+    }
+
+    override fun showNoAlarmNotes() {
+        showNoNotesView(getString(R.string.no_alarm_notes_main), R.drawable.ic_timelapse)
+    }
+
+    override fun showNoArchivedNotes() {
+        showNoNotesView(getString(R.string.no_archived_notes_main), R.drawable.ic_tag_faces, false)
+    }
+
+    override fun showNoDeletedNotes() {
+        showNoNotesView(getString(R.string.no_deleted_notes_main), R.drawable.ic_thumb_up, false)
+    }
+
+    override fun showNonFilterLabel() {
+        titleText.text = getString(R.string.all_notes_filter_label)
+    }
+
+    override fun showAlarmFilterLabel() {
+        titleText.text = getString(R.string.alarm_notes_filter_label)
+    }
+
+    override fun showArchivedFilterLabel() {
+        titleText.text = getString(R.string.archived_notes_filter_label)
+    }
+
+    override fun showDeletedFilterLabel() {
+        titleText.text = getString(R.string.deleted_notes_filter_label)
+    }
+
+    private fun showNoNotesView(mainText: String, @DrawableRes iconRes: Int, showAddView: Boolean = true) {
+        notes_view?.visibility = View.GONE
+        no_notes_view?.visibility = View.VISIBLE
+
+        noNotesMain?.text = mainText
+        noNotesIcon?.setImageResource(iconRes)
+        noNotesSub?.visibility = if (showAddView) View.VISIBLE else View.GONE
+    }
+
     override fun actionAddNote() {
         val intent = ModifyNoteActivity.newIntent(context, 0)
         startActivityForResult(intent, REQ_ADD_NOTE)
@@ -124,25 +198,20 @@ class NotesFragment : Fragment(), NotesContract.View {
         startActivity(NoteDetailActivity.newIntent(context, noteId))
     }
 
-    override fun showNoNotes() {
-        notes_view.visibility = View.GONE
-        no_notes_view.visibility = View.VISIBLE
-    }
-
     override fun showNoteMarkedArchived(archivedNote: Note) {
-        showSnackBar("已归档")
+        showSnackBar(getString(R.string.action_archive))
     }
 
     override fun showNoteMarkedDeleted(deletedNote: Note) {
-        showSnackBar("已移入回收站")
+        showSnackBar(getString(R.string.action_delete))
     }
 
     override fun showSuccessfullySavedMessage() {
-        showSnackBar("笔记已保存")
+        showSnackBar(getString(R.string.action_note_saved))
     }
 
     override fun showSuccessfullyUpdatedMessage() {
-        showSnackBar("笔记已更新")
+        showSnackBar(getString(R.string.action_note_updated))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

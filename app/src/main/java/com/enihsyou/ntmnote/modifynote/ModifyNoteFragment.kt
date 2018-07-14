@@ -88,13 +88,13 @@ class ModifyNoteFragment : Fragment(), ModifyNoteContract.View {
         alarm = alarmTime
 
         val instance = Calendar.getInstance()
-        instance.time = alarm
+        alarm?.let { instance.time = alarm }
 
         var pickedYear = instance.get(Calendar.YEAR)
         var pickedMonth = instance.get(Calendar.MONTH)
         var pickedDay = instance.get(Calendar.DAY_OF_MONTH)
         var pickedHour = instance.get(Calendar.HOUR_OF_DAY)
-        var pickedMinute = instance.get(Calendar.MONTH)
+        var pickedMinute = instance.get(Calendar.MINUTE)
 
 
         val timePickerDialog = TimePickerDialog.newInstance({ _, hourOfDay, minute, second ->
@@ -105,7 +105,7 @@ class ModifyNoteFragment : Fragment(), ModifyNoteContract.View {
 
             calendar.set(pickedYear, pickedMonth, pickedDay, pickedHour, pickedMinute)
             alarm = calendar.time
-        }, pickedHour, pickedMinute, false)
+        }, pickedHour, pickedMinute, true)
 
         val datePickerDialog = DatePickerDialog.newInstance({ _, year, monthOfYear, dayOfMonth ->
             pickedYear = year

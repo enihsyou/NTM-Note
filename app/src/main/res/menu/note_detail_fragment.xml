@@ -11,4 +11,9 @@
     android:icon="@drawable/ic_menu_archive"
     android:title="Archive Note"
     app:showAsAction="ifRoom|withText"/>
+  <item
+    android:id="@+id/activate_note"
+    android:icon="@drawable/ic_menu_unarchive"
+    android:title="Activate Note"
+    app:showAsAction="ifRoom|withText"/>
 </menu>

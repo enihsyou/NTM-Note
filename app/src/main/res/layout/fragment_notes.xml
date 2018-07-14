@@ -31,7 +31,7 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:text="@string/note_filter_label" />
+        android:text="@string/all_notes_filter_label" />
 
       <android.support.v7.widget.RecyclerView
         android:id="@+id/notes_list"
@@ -55,6 +55,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
+        android:tint="@color/colorAccent"
         android:src="@drawable/ic_fab_main_plus" />
 
       <TextView

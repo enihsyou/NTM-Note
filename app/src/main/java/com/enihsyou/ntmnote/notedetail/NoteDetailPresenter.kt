@@ -6,7 +6,7 @@ import com.enihsyou.ntmnote.data.source.NotesDataSource
 
 class NoteDetailPresenter(
     private val noteId: Int,
-    private val repository: NotesDataSource,
+    private val dataSource: NotesDataSource,
     private val fragment: NoteDetailContract.View
 ) : NoteDetailContract.Presenter {
 
@@ -15,7 +15,7 @@ class NoteDetailPresenter(
     }
 
     override fun start() {
-        repository.getNote(noteId, object : NotesDataSource.GetNoteCallback {
+        dataSource.getNote(noteId, object : NotesDataSource.GetNoteCallback {
             override fun onNoteLoaded(note: Note) {
                 with(fragment) {
                     setLabel(note.label)
@@ -37,12 +37,17 @@ class NoteDetailPresenter(
     }
 
     override fun archiveNote() {
-        repository.archiveNote(noteId)
+        dataSource.archiveNote(noteId)
         fragment.showNoteArchived()
     }
 
     override fun deleteNote() {
-        repository.deleteNote(noteId)
+        dataSource.deleteNote(noteId)
         fragment.showNoteDeleted()
+    }
+
+    override fun activateNote() {
+        dataSource.activateNote(noteId)
+        fragment.showNoteActivated()
     }
 }

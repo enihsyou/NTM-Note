@@ -65,6 +65,8 @@ class NoteDetailFragment : Fragment(), NoteDetailContract.View {
 
             R.id.archive_note -> presenter.archiveNote()
 
+            R.id.activate_note -> presenter.activateNote()
+
             else              -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -108,15 +110,19 @@ class NoteDetailFragment : Fragment(), NoteDetailContract.View {
     }
 
     override fun showNoteArchived() {
-        showSnackBar("Note marked Archived")
+        showSnackBar(getString(R.string.action_archive))
     }
 
     override fun showNoteDeleted() {
-        showSnackBar("Note marked Deleted")
+        showSnackBar(getString(R.string.action_delete))
+    }
+
+    override fun showNoteActivated() {
+        showSnackBar(getString(R.string.action_activate))
     }
 
     override fun showMissingNote() {
-        showSnackBar("Note Empty")
+        showSnackBar(getString(R.string.note_missing))
     }
 
     companion object {

@@ -20,9 +20,9 @@ interface NotesDataSource {
         fun onDataNotAvailable()
     }
 
-    fun getNotes(callback: LoadNotesCallback, errorCallback: SourceErrorCallback)
+    fun getNotes(callback: LoadNotesCallback, errorCallback: SourceErrorCallback? = null)
 
-    fun getNote(noteId: Int, callback: GetNoteCallback, errorCallback: SourceErrorCallback)
+    fun getNote(noteId: Int, callback: GetNoteCallback, errorCallback: SourceErrorCallback? = null)
 
     fun saveNote(note: Note)
 

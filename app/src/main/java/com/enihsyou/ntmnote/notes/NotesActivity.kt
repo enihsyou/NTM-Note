@@ -1,9 +1,9 @@
 package com.enihsyou.ntmnote.notes
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
@@ -11,6 +11,7 @@ import com.enihsyou.ntmnote.R
 import com.enihsyou.ntmnote.data.source.NotesDataSource
 import com.enihsyou.ntmnote.data.source.local.NotesDatabase
 import com.enihsyou.ntmnote.data.source.local.NotesLocalDataSource
+import com.enihsyou.ntmnote.ui.AboutActivity
 import com.enihsyou.ntmnote.utils.AppExecutors
 import com.enihsyou.ntmnote.utils.replaceFragmentInActivity
 import com.enihsyou.ntmnote.utils.setupActionBar
@@ -31,6 +32,7 @@ class NotesActivity : AppCompatActivity() {
         }
 
         // Set up the navigation drawer.
+        drawer_layout?.setStatusBarBackground(R.color.colorPrimaryDark)
         setUpDrawerContent(nav_view)
 
         val notesFragment = supportFragmentManager.findFragmentById(R.id.contentFrame) as? NotesFragment
@@ -48,29 +50,13 @@ class NotesActivity : AppCompatActivity() {
     private fun setUpDrawerContent(navigationView: NavigationView) {
         navigationView.setNavigationItemSelectedListener {
             // Handle navigation view item clicks here.
-            val fragment = when (it.itemId) {
-                R.id.nav_note    -> {
-                }
-
-                R.id.nav_remind  -> {
-                }
-
-                R.id.nav_trash   -> {
-                }
-
-                R.id.nav_setting -> {
-
-                }
-
-                R.id.nav_about   -> {
-
-                }
-
-                else             -> {
-                }
+            when (it.itemId) {
+                R.id.nav_note     -> notesPresenter.changeFilterType(NotesFilterType.ALL_NOTES)
+                R.id.nav_remind   -> notesPresenter.changeFilterType(NotesFilterType.ALARM_NOTES)
+                R.id.nav_archived -> notesPresenter.changeFilterType(NotesFilterType.ARCHIVED_NOTES)
+                R.id.nav_trash    -> notesPresenter.changeFilterType(NotesFilterType.DELETED_NOTES)
+                R.id.nav_about    -> startActivity(Intent(this, AboutActivity::class.java))
             }
-            val fragmentManager = supportFragmentManager
-            fragmentManager.beginTransaction().replace(R.id.contentFrame, Fragment()).commit()
 
             it.isChecked = true
             drawer_layout.closeDrawer(GravityCompat.START)

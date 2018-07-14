@@ -11,7 +11,7 @@ class NotesLocalDataSource private constructor(
 
     override fun getNotes(
         callback: NotesDataSource.LoadNotesCallback,
-        errorCallback: NotesDataSource.SourceErrorCallback
+        errorCallback: NotesDataSource.SourceErrorCallback?
     ) {
         appExecutors.diskIO.execute {
             val notes = notesDAO.getNotes()
@@ -19,7 +19,7 @@ class NotesLocalDataSource private constructor(
                 if (notes.isNotEmpty()) {
                     callback.onNotesLoaded(notes)
                 } else {
-                    errorCallback.onDataNotAvailable()
+                    errorCallback?.onDataNotAvailable()
                 }
             }
         }
@@ -28,15 +28,16 @@ class NotesLocalDataSource private constructor(
     override fun getNote(
         noteId: Int,
         callback: NotesDataSource.GetNoteCallback,
-        errorCallback: NotesDataSource.SourceErrorCallback
+        errorCallback: NotesDataSource.SourceErrorCallback?
     ) {
         appExecutors.diskIO.execute {
+            if (noteId == 0) return@execute
             val note = notesDAO.getNote(noteId)
             appExecutors.mainThread.execute {
                 if (note != null) {
                     callback.onNoteLoaded(note)
                 } else {
-                    errorCallback.onDataNotAvailable()
+                    errorCallback?.onDataNotAvailable()
                 }
             }
         }
@@ -73,7 +74,7 @@ class NotesLocalDataSource private constructor(
     }
 
     override fun deleteNote(noteId: Int) {
-        appExecutors.diskIO.execute { notesDAO.updateArchivedNote(noteId) }
+        appExecutors.diskIO.execute { notesDAO.updateDeletedNote(noteId) }
     }
 
     companion object {
