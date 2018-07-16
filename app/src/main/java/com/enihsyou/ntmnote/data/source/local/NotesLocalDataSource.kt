@@ -1,5 +1,7 @@
 package com.enihsyou.ntmnote.data.source.local
 
+import android.content.Context
+import com.enihsyou.ntmnote.R
 import com.enihsyou.ntmnote.data.Note
 import com.enihsyou.ntmnote.data.source.NotesDataSource
 import com.enihsyou.ntmnote.utils.AppExecutors
@@ -7,8 +9,11 @@ import java.util.*
 
 class NotesLocalDataSource private constructor(
     private val notesDAO: NotesDAO,
-    private val appExecutors: AppExecutors
+    private val appExecutors: AppExecutors,
+    content: Context
 ) : NotesDataSource {
+
+    private val stringNoteLoadFail = content.getString(R.string.note_load_fail) ?: "Failed load string"
 
     override fun getNotes(
         force: Boolean,
@@ -21,7 +26,7 @@ class NotesLocalDataSource private constructor(
                 if (notes.isNotEmpty()) {
                     callback.onNotesLoaded(notes)
                 } else {
-                    errorCallback?.onDataNotAvailable()
+                    errorCallback?.onDataNotAvailable(stringNoteLoadFail)
                 }
             }
         }
@@ -39,7 +44,7 @@ class NotesLocalDataSource private constructor(
                 if (note != null) {
                     callback.onNoteLoaded(note)
                 } else {
-                    errorCallback?.onDataNotAvailable()
+                    errorCallback?.onDataNotAvailable(stringNoteLoadFail)
                 }
             }
         }
@@ -56,24 +61,12 @@ class NotesLocalDataSource private constructor(
         }
     }
 
-    override fun archiveNote(note: Note) {
-        archiveNote(note.id)
-    }
-
     override fun archiveNote(noteId: Int) {
         appExecutors.diskIO.execute { notesDAO.updateArchivedNote(noteId) }
     }
 
-    override fun activateNote(note: Note) {
-        activateNote(note.id)
-    }
-
     override fun activateNote(noteId: Int) {
         appExecutors.diskIO.execute { notesDAO.updateActivatedNote(noteId) }
-    }
-
-    override fun deleteNote(note: Note) {
-        deleteNote(note.id)
     }
 
     override fun deleteNote(noteId: Int) {
@@ -84,10 +77,10 @@ class NotesLocalDataSource private constructor(
         private var INSTANCE: NotesLocalDataSource? = null
 
         @JvmStatic
-        fun getInstance(appExecutors: AppExecutors, notesDAO: NotesDAO): NotesLocalDataSource {
+        fun getInstance(appExecutors: AppExecutors, notesDAO: NotesDAO, content: Context): NotesLocalDataSource {
             if (INSTANCE == null) {
                 synchronized(NotesLocalDataSource::javaClass) {
-                    INSTANCE = NotesLocalDataSource(notesDAO, appExecutors)
+                    INSTANCE = NotesLocalDataSource(notesDAO, appExecutors, content)
                 }
             }
             return INSTANCE!!

@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import com.enihsyou.ntmnote.R
+import com.enihsyou.ntmnote.data.Message
 import com.enihsyou.ntmnote.data.User
 import com.enihsyou.ntmnote.data.source.UserDataSource
 import com.enihsyou.ntmnote.data.source.remote.UserRepository
@@ -101,9 +102,12 @@ class LoginActivity : AppCompatActivity() {
             // perform the user login attempt.
             showProgress(true)
             dataSource.login(usernameStr, passwordStr, object : UserDataSource.LoginCallback {
-                override fun onUserLogin(user: User?) {
+                override fun onUserLogin(response: Message<User>) {
                     showProgress(false)
-                    if (user != null) {
+                    if (response.msg != null) {
+                        password.error = response.msg
+                        password.requestFocus()
+                    } else {
                         val preferences = PreferenceManager.getDefaultSharedPreferences(this@LoginActivity)
                         val editor = preferences.edit()
                         editor.putString("username", usernameStr)
@@ -112,9 +116,6 @@ class LoginActivity : AppCompatActivity() {
 
                         setResult(Activity.RESULT_OK)
                         finish()
-                    } else {
-                        password.error = getString(R.string.error_incorrect_password)
-                        password.requestFocus()
                     }
                 }
             })
@@ -162,17 +163,17 @@ class LoginActivity : AppCompatActivity() {
             // perform the user login attempt.
             showProgress(true)
             dataSource.register(usernameStr, passwordStr, object : UserDataSource.RegisterCallback {
-                override fun onOperationDone(status: Boolean) {
+                override fun onOperationDone(response: Message<User>) {
                     showProgress(false)
-                    if (status) {
+                    if (response.msg != null) {
+                        username.error = response.msg
+                        password.requestFocus()
+                    } else {
                         Toast.makeText(applicationContext, "注册成功", Toast.LENGTH_SHORT).show()
 
                         username.text.clear()
                         password.text.clear()
                         username.requestFocus()
-                    } else {
-                        username.error = getString(R.string.error_invalid_username)
-                        password.requestFocus()
                     }
                 }
             })

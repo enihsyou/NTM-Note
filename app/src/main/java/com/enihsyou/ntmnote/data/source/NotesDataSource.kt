@@ -17,7 +17,7 @@ interface NotesDataSource {
 
     interface SourceErrorCallback {
 
-        fun onDataNotAvailable()
+        fun onDataNotAvailable(msg: String)
     }
 
     fun getNotes(force: Boolean, callback: LoadNotesCallback, errorCallback: SourceErrorCallback? = null)
@@ -26,13 +26,10 @@ interface NotesDataSource {
 
     fun saveNote(note: Note)
 
-    fun archiveNote(note: Note)
     fun archiveNote(noteId: Int)
 
-    fun activateNote(note: Note)
     fun activateNote(noteId: Int)
 
-    fun deleteNote(note: Note)
     fun deleteNote(noteId: Int)
 }
 

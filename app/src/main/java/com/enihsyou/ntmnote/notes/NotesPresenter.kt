@@ -20,8 +20,6 @@ class NotesPresenter(
         loadNotes(false, false)
     }
 
-    private var firstLoad = true
-
     override fun addNoteResult() {
         fragment.showSuccessfullySavedMessage()
     }
@@ -35,11 +33,10 @@ class NotesPresenter(
     }
 
     override fun loadNotes() {
-        loadNotes(true, true)
-        firstLoad = false
+        loadNotes(true, false)
     }
 
-    private fun loadNotes(force: Boolean, showLoadingUi: Boolean) {
+    private fun loadNotes(showLoadingUi: Boolean, force: Boolean = false) {
         if (showLoadingUi) {
             fragment.setLoadingIndicator(true)
         }
@@ -56,12 +53,12 @@ class NotesPresenter(
                         NotesFilterType.DELETED_NOTES  -> if (note.status == NoteStatus.TRASH) notesToShow.add(note)
                     }
                 }
-
+                if (force) fragment.showLoadingSuccess()
                 processNotes(notesToShow)
             }
         }, object : NotesDataSource.SourceErrorCallback {
-            override fun onDataNotAvailable() {
-                if (!firstLoad) fragment.showLoadingError()
+            override fun onDataNotAvailable(msg: String) {
+                if (force) fragment.showLoadingError(msg)
             }
         })
 
@@ -99,6 +96,7 @@ class NotesPresenter(
 
     override fun addNewNote() {
         fragment.actionAddNote()
+        loadNotes(false, false)
     }
 
     override fun openNoteDetail(clickedNote: Note) {
@@ -106,14 +104,18 @@ class NotesPresenter(
     }
 
     override fun archiveNote(archivedNote: Note) {
-        dataSource.archiveNote(archivedNote)
+        dataSource.archiveNote(archivedNote.id)
         fragment.showNoteMarkedArchived(archivedNote)
-        loadNotes()
+        loadNotes(false, false)
     }
 
     override fun deleteNote(deletedNote: Note) {
-        dataSource.deleteNote(deletedNote)
+        dataSource.deleteNote(deletedNote.id)
         fragment.showNoteMarkedDeleted(deletedNote)
-        loadNotes()
+        loadNotes(false, false)
+    }
+
+    override fun sync() {
+        loadNotes(true, true)
     }
 }

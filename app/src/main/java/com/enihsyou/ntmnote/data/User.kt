@@ -5,3 +5,4 @@ class User(
     val password: String,
     val notes: MutableList<Note>
 )
+

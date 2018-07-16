@@ -34,7 +34,8 @@ interface NotesContract {
 
         fun showSuccessfullyUpdatedMessage()
 
-        fun showLoadingError()
+        fun showLoadingSuccess()
+        fun showLoadingError(msg: String)
     }
 
     interface Presenter : BasePresenter {
@@ -55,5 +56,7 @@ interface NotesContract {
 
         fun archiveNote(archivedNote: Note)
         fun deleteNote(deletedNote: Note)
+
+        fun sync()
     }
 }

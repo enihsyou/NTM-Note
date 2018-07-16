@@ -56,7 +56,7 @@ class ModifyNotePresenter(
                 }
             }
         }, object : NotesDataSource.SourceErrorCallback {
-            override fun onDataNotAvailable() {
+            override fun onDataNotAvailable(msg: String) {
                 throw IllegalStateException()
             }
         })
@@ -74,7 +74,7 @@ class ModifyNotePresenter(
                 this@ModifyNotePresenter.note = note
             }
         }, object : NotesDataSource.SourceErrorCallback {
-            override fun onDataNotAvailable() {
+            override fun onDataNotAvailable(msg: String) {
                 throw IllegalStateException()
             }
         })

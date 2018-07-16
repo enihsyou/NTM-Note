@@ -23,10 +23,7 @@ object Injection {
 
         val database = NotesDatabase.getInstance(context)
         val localDataSource =
-            NotesLocalDataSource.getInstance(
-                executors,
-                database.notesDao()
-            )
+            NotesLocalDataSource.getInstance(executors, database.notesDao(), context)
         val remoteDataSource = UserRepository(api, executors)
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val username = preferences.getString("username", null)

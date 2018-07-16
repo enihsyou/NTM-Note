@@ -26,7 +26,7 @@ class NoteDetailPresenter(
                 }
             }
         }, object : NotesDataSource.SourceErrorCallback {
-            override fun onDataNotAvailable() {
+            override fun onDataNotAvailable(msg: String) {
                 fragment.showMissingNote()
             }
         })

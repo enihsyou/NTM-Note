@@ -25,7 +25,7 @@ public class Note {
 
     private String content;
 
-    private String alarm;
+    private String alarmTime;
 
     private String status;
 

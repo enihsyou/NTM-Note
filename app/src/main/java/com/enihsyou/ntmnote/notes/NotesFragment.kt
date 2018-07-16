@@ -103,11 +103,15 @@ class NotesFragment : Fragment(), NotesContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_action_change_layout -> toggleLayoutManager()
+            R.id.menu_action_sync_refresh  -> syncRefresh()
             else                           -> return super.onOptionsItemSelected(item)
         }
         return true
     }
 
+    private fun syncRefresh() {
+        presenter.sync()
+    }
 
     private fun toggleLayoutManager() {
         notes_list?.layoutManager = currentLayoutManager
@@ -127,8 +131,12 @@ class NotesFragment : Fragment(), NotesContract.View {
         }
     }
 
-    override fun showLoadingError() {
-        showSnackBar("载入失败")
+    override fun showLoadingSuccess() {
+        showSnackBar("载入成功")
+    }
+
+    override fun showLoadingError(msg: String) {
+        showSnackBar(msg)
     }
 
     override fun showNotes(notes: List<Note>) {
