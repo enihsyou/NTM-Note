@@ -15,6 +15,7 @@
     <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background"
       android:padding="8dp">
 
       <TextView

@@ -25,9 +25,15 @@ class AlarmReceiver : BroadcastReceiver() {
         NotificationManagerCompat.from(context).notify(0, mBuilder.build())
     }
 
-
     companion object {
-        const val EXT_NOTIFY_TITLE = "title"
-        const val EXT_NOTIFY_CONTENT = "content"
+        private const val EXT_NOTIFY_TITLE = "title"
+        private const val EXT_NOTIFY_CONTENT = "content"
+
+        fun newIntent(context: Context?, label: String, content: String): Intent {
+            val intent = Intent(context, AlarmReceiver::class.java)
+            intent.putExtra(AlarmReceiver.EXT_NOTIFY_TITLE, label)
+            intent.putExtra(AlarmReceiver.EXT_NOTIFY_CONTENT, content)
+            return intent
+        }
     }
 }

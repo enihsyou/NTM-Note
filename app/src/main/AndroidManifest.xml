@@ -38,7 +38,7 @@
       android:name=".notes.AlarmReceiver"
       android:enabled="true" />
 
-    <activity android:name=".statistics.StatisticsActivity" />
+    <activity android:name=".statistics.StatisticsActivity" android:theme="@style/AppTheme.NoActionBar" />
     <activity
       android:name=".notes.LoginActivity"
       android:label="@string/title_activity_login" />

@@ -7,28 +7,20 @@ import java.util.*
 
 @Entity
 class Note(
-    @ColumnInfo(name = "label")
-    var label: String,
+    @ColumnInfo(name = "label") var label: String,
 
-    @ColumnInfo(name = "content")
-    var content: String,
+    @ColumnInfo(name = "content") var content: String,
 
-    @ColumnInfo(name = "notify_time")
-    var alarmTime: Date? = null,
+    @ColumnInfo(name = "notify_time") var alarmTime: Date? = null,
 
-    @ColumnInfo(name = "status")
-    var status: NoteStatus = NoteStatus.NORMAL,
+    @ColumnInfo(name = "status") var status: NoteStatus = NoteStatus.NORMAL,
 
-    @ColumnInfo(name = "created_time")
-    val createdTime: Date = Date(),
+    @ColumnInfo(name = "created_time") val createdTime: Date = Date(),
 
-    @ColumnInfo(name = "last_modified_time")
-    var lastModifiedTime: Date = createdTime
+    @ColumnInfo(name = "last_modified_time") var lastModifiedTime: Date = createdTime
 ) {
 
-    @PrimaryKey
-    @ColumnInfo(name = "note_id")
-    var id: Int = 0
+    @PrimaryKey @ColumnInfo(name = "note_id") var id: Int = 0
 }
 
 enum class NoteStatus(val raw: Int) {

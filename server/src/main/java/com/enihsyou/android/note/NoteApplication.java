@@ -3,7 +3,6 @@ package com.enihsyou.android.note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +13,16 @@ import org.springframework.web.bind.annotation.*;
 public class NoteApplication {
 
     public static final ResponseEntity<Message> PASSWORD_MISS_MATCH =
-        ResponseEntity.badRequest().body(Message.text("密码不正确"));
+        ResponseEntity.ok(Message.text("密码不正确"));
 
     public static final ResponseEntity<Message> USER_NOT_FOUND =
-        ResponseEntity.status(HttpStatus.NOT_FOUND).body(Message.text("用户不存在"));
+        ResponseEntity.ok(Message.text("用户不存在"));
 
     public static final ResponseEntity<Message> NOTE_NOT_FOUND =
-        ResponseEntity.status(HttpStatus.NOT_FOUND).body(Message.text("笔记不存在"));
+        ResponseEntity.ok(Message.text("笔记不存在"));
 
-    public static final ResponseEntity<Message> USER_EXIST = ResponseEntity.badRequest().body(Message.text("用户名已存在"));
+    public static final ResponseEntity<Message> USER_EXIST =
+        ResponseEntity.ok(Message.text("用户名已存在"));
 
     private final UserRepository repository;
 

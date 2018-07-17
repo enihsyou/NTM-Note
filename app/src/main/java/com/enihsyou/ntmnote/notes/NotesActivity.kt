@@ -11,8 +11,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.Toast
 import com.enihsyou.ntmnote.R
+import com.enihsyou.ntmnote.statistics.StatisticsActivity
 import com.enihsyou.ntmnote.ui.AboutActivity
-import com.enihsyou.ntmnote.ui.Injection
+import com.enihsyou.ntmnote.utils.Injection
 import com.enihsyou.ntmnote.utils.replaceFragmentInActivity
 import com.enihsyou.ntmnote.utils.setupActionBar
 import kotlinx.android.synthetic.main.activity_notes.*
@@ -63,11 +64,12 @@ class NotesActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener {
             // Handle navigation view item clicks here.
             when (it.itemId) {
-                R.id.nav_note     -> notesPresenter.changeFilterType(NotesFilterType.ALL_NOTES)
-                R.id.nav_remind   -> notesPresenter.changeFilterType(NotesFilterType.ALARM_NOTES)
-                R.id.nav_archived -> notesPresenter.changeFilterType(NotesFilterType.ARCHIVED_NOTES)
-                R.id.nav_trash    -> notesPresenter.changeFilterType(NotesFilterType.DELETED_NOTES)
-                R.id.nav_about    -> startActivity(Intent(this, AboutActivity::class.java))
+                R.id.nav_note       -> notesPresenter.changeFilterType(NotesFilterType.ALL_NOTES)
+                R.id.nav_remind     -> notesPresenter.changeFilterType(NotesFilterType.ALARM_NOTES)
+                R.id.nav_archived   -> notesPresenter.changeFilterType(NotesFilterType.ARCHIVED_NOTES)
+                R.id.nav_trash      -> notesPresenter.changeFilterType(NotesFilterType.DELETED_NOTES)
+                R.id.nav_statistics -> startActivity(Intent(this, StatisticsActivity::class.java))
+                R.id.nav_about      -> startActivity(Intent(this, AboutActivity::class.java))
             }
 
             it.isChecked = true

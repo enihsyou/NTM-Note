@@ -148,14 +148,11 @@ class NotesFragment : Fragment(), NotesContract.View {
         notes
             .asSequence()
             .filter { it.status == NoteStatus.NORMAL }
+            .filter { it.alarmTime != null }
             .forEach {
-                it.alarmTime?.run {
-                    val intent = Intent(context, AlarmReceiver::class.java)
-                    intent.putExtra(AlarmReceiver.EXT_NOTIFY_TITLE, it.label)
-                    intent.putExtra(AlarmReceiver.EXT_NOTIFY_CONTENT, it.content)
-                    val pendingIntent = PendingIntent.getBroadcast(context, REQ_ALARM, intent, 0)
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, this.time, pendingIntent)
-                }
+                val intent = AlarmReceiver.newIntent(context, it.label, it.content)
+                val pendingIntent = PendingIntent.getBroadcast(context, REQ_ALARM, intent, 0)
+                alarmManager.set(AlarmManager.RTC_WAKEUP, it.alarmTime!!.time, pendingIntent)
             }
     }
 

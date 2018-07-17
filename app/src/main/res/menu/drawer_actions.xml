@@ -32,6 +32,10 @@
   <group android:id="@+id/drawer_menu_group3"
     android:checkableBehavior="single">
     <item
+      android:id="@+id/nav_statistics"
+      android:icon="@drawable/ic_setting_info"
+      android:title="统计" />
+    <item
       android:id="@+id/nav_about"
       android:icon="@drawable/ic_menu_about"
       android:title="关于" />

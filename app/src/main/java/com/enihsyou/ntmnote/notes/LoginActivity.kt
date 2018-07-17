@@ -17,12 +17,8 @@ import com.enihsyou.ntmnote.R
 import com.enihsyou.ntmnote.data.Message
 import com.enihsyou.ntmnote.data.User
 import com.enihsyou.ntmnote.data.source.UserDataSource
-import com.enihsyou.ntmnote.data.source.remote.UserRepository
-import com.enihsyou.ntmnote.data.source.remote.WebApi
-import com.enihsyou.ntmnote.utils.AppExecutors
+import com.enihsyou.ntmnote.utils.Injection
 import kotlinx.android.synthetic.main.activity_login.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginActivity : AppCompatActivity() {
 
@@ -48,12 +44,7 @@ class LoginActivity : AppCompatActivity() {
         username_sign_in_button.setOnClickListener { attemptLogin() }
         username_sign_up_button.setOnClickListener { attemptSignUp() }
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.0.100:8999")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val api = retrofit.create(WebApi::class.java)
-        dataSource = UserRepository(api, AppExecutors())
+        dataSource = Injection.provideUserRepository()
     }
 
     /**
@@ -105,8 +96,14 @@ class LoginActivity : AppCompatActivity() {
                 override fun onUserLogin(response: Message<User>) {
                     showProgress(false)
                     if (response.msg != null) {
-                        password.error = response.msg
-                        password.requestFocus()
+                        if (response.msg == "密码不正确") {
+                            password.error = response.msg
+                            password.text.clear()
+                            password.requestFocus()
+                        } else {
+                            username.error = response.msg
+                            username.requestFocus()
+                        }
                     } else {
                         val preferences = PreferenceManager.getDefaultSharedPreferences(this@LoginActivity)
                         val editor = preferences.edit()
