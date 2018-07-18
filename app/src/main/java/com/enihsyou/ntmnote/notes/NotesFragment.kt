@@ -31,6 +31,7 @@ import kotlinx.android.synthetic.main.activity_notes.*
 import kotlinx.android.synthetic.main.fragment_notes.*
 import kotlinx.android.synthetic.main.fragment_notes.view.*
 import kotlinx.android.synthetic.main.note_item.view.*
+import java.util.*
 
 class NotesFragment : Fragment(), NotesContract.View {
 
@@ -152,7 +153,7 @@ class NotesFragment : Fragment(), NotesContract.View {
             .forEach {
                 val intent = AlarmReceiver.newIntent(context, it.label, it.content)
                 val pendingIntent = PendingIntent.getBroadcast(context, REQ_ALARM, intent, 0)
-                alarmManager.set(AlarmManager.RTC_WAKEUP, it.alarmTime!!.time, pendingIntent)
+                alarmManager.set(AlarmManager.RTC_WAKEUP, it.alarmTime!!, pendingIntent)
             }
     }
 
@@ -237,7 +238,7 @@ class NotesFragment : Fragment(), NotesContract.View {
         fun bind(note: Note, itemListener: NoteItemListener) {
             title.text = note.label
             content.text = note.content
-            time.text = Converters.getDateStringShort(note.lastModifiedTime)
+            time.text = Converters.getDateStringShort(Date(note.lastModifiedTime))
 
             view.setOnTouchListener(object : OnSwipeTouchListener(view.context) {
                 override fun onClick() {

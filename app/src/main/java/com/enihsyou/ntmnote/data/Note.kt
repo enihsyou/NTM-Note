@@ -11,13 +11,13 @@ class Note(
 
     @ColumnInfo(name = "content") var content: String,
 
-    @ColumnInfo(name = "notify_time") var alarmTime: Date? = null,
+    @ColumnInfo(name = "notify_time") var alarmTime: Long? = null,
 
     @ColumnInfo(name = "status") var status: NoteStatus = NoteStatus.NORMAL,
 
-    @ColumnInfo(name = "created_time") val createdTime: Date = Date(),
+    @ColumnInfo(name = "created_time") val createdTime: Long = Date().time,
 
-    @ColumnInfo(name = "last_modified_time") var lastModifiedTime: Date = createdTime
+    @ColumnInfo(name = "last_modified_time") var lastModifiedTime: Long = createdTime
 ) {
 
     @PrimaryKey @ColumnInfo(name = "note_id") var id: Int = 0

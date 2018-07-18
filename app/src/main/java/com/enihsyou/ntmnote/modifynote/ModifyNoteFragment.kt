@@ -84,9 +84,7 @@ class ModifyNoteFragment : Fragment(), ModifyNoteContract.View {
         }
     }
 
-    override fun showDateTimePicker(alarmTime: Date?) {
-        alarm = alarmTime
-
+    override fun showDateTimePicker(alarmTime: Long?) {
         val instance = Calendar.getInstance()
         alarm?.let { instance.time = alarm }
 

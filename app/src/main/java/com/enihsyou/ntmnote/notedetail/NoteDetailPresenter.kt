@@ -3,6 +3,7 @@ package com.enihsyou.ntmnote.notedetail
 import com.enihsyou.ntmnote.data.Converters
 import com.enihsyou.ntmnote.data.Note
 import com.enihsyou.ntmnote.data.source.NotesDataSource
+import java.util.*
 
 class NoteDetailPresenter(
     private val noteId: Int,
@@ -20,9 +21,9 @@ class NoteDetailPresenter(
                 with(fragment) {
                     setLabel(note.label)
                     setContent(note.content)
-                    setCreatedTime(Converters.getDateString(note.createdTime))
-                    setModifiedTime(Converters.getDateString(note.lastModifiedTime))
-                    setAlarmTime(note.alarmTime?.let { Converters.getDateString(it)} )
+                    setCreatedTime(Converters.getDateString(Date(note.createdTime)))
+                    setModifiedTime(Converters.getDateString(Date(note.lastModifiedTime)))
+                    setAlarmTime(note.alarmTime?.let { Converters.getDateString(Date(it))} )
                 }
             }
         }, object : NotesDataSource.SourceErrorCallback {

@@ -80,7 +80,13 @@ class NotesActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            REQ_LOGIN -> if (resultCode == Activity.RESULT_OK) showLoginSuccessful()
+            REQ_LOGIN -> if (resultCode == Activity.RESULT_OK){
+                showLoginSuccessful()
+                val notesFragment = supportFragmentManager.findFragmentById(R.id.contentFrame) as? NotesFragment
+                    ?: NotesFragment.newInstance().also { replaceFragmentInActivity(it, R.id.contentFrame) }
+
+                notesPresenter = NotesPresenter(Injection.provideTasksRepository(applicationContext), notesFragment)
+            }
             else      -> super.onActivityResult(requestCode, resultCode, data)
         }
     }

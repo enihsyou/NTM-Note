@@ -29,7 +29,7 @@ class ModifyNotePresenter(
     }
 
     private fun createNote(label: String, content: String, alarm: Date?) {
-        val newNote = Note(label, content, alarm)
+        val newNote = Note(label, content, alarm?.time)
         if (label.isBlank()) {
             fragment.showEmptyError()
         } else {
@@ -44,14 +44,14 @@ class ModifyNotePresenter(
                 note.apply {
                     this.label = label
                     this.content = content
-                    this.alarmTime = alarm
-                    this.lastModifiedTime = Date()
+                    this.alarmTime = alarm?.time
+                    this.lastModifiedTime = Date().time
                 }
 
                 if (label.isBlank()) {
                     fragment.showEmptyError()
                 } else {
-                    notesRepository.saveNote(note)
+                    notesRepository.updateNote(note)
                     fragment.showModifyActionSuccess()
                 }
             }

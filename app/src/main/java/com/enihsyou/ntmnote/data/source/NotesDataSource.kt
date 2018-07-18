@@ -26,6 +26,8 @@ interface NotesDataSource {
 
     fun saveNote(note: Note)
 
+    fun updateNote(note: Note)
+
     fun archiveNote(noteId: Int)
 
     fun activateNote(noteId: Int)

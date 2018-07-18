@@ -59,6 +59,13 @@ class NotesRepository(
         }
     }
 
+    override fun updateNote(note: Note) {
+        localDataSource.updateNote(note)
+        if (username != null && password != null) {
+            remoteDataSource.uploadNote(username, password, note)
+        }
+    }
+
     override fun archiveNote(noteId: Int) {
         localDataSource.archiveNote(noteId)
         if (username != null && password != null) {

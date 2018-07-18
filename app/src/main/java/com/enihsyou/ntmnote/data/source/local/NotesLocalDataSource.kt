@@ -23,11 +23,8 @@ class NotesLocalDataSource private constructor(
         appExecutors.diskIO.execute {
             val notes = notesDAO.getNotes()
             appExecutors.mainThread.execute {
-                if (notes.isNotEmpty()) {
-                    callback.onNotesLoaded(notes)
-                } else {
-                    errorCallback?.onDataNotAvailable(stringNoteLoadFail)
-                }
+                callback.onNotesLoaded(notes)
+//                errorCallback?.onDataNotAvailable(stringNoteLoadFail)
             }
         }
     }
@@ -52,12 +49,14 @@ class NotesLocalDataSource private constructor(
 
     override fun saveNote(note: Note) {
         appExecutors.diskIO.execute {
-            if (note.id == 0) {
-                note.id = Random().nextInt()
-                notesDAO.insertNote(note)
-            } else {
-                notesDAO.updateNote(note)
-            }
+            note.id = Random().nextInt()
+            notesDAO.insertNote(note)
+        }
+    }
+
+    override fun updateNote(note: Note) {
+        appExecutors.diskIO.execute {
+            notesDAO.updateNote(note)
         }
     }
 

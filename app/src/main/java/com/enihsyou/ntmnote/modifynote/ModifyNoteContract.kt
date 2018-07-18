@@ -10,7 +10,7 @@ interface ModifyNoteContract {
         fun setContent(content: String)
         fun showEmptyError()
         fun showModifyActionSuccess()
-        fun showDateTimePicker(alarmTime: Date?)
+        fun showDateTimePicker(alarmTime: Long?)
     }
 
     interface Presenter : BasePresenter {
